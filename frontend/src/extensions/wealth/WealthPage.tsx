@@ -310,7 +310,7 @@ export default function WealthPage() {
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
               Google Sheets {summary.latest_sync.as_of_date} 已同步
               · {summary.latest_sync.asset_count} 项资产
-              · {summary.latest_sync.snapshot_count} 条历史
+              · 历史 {summary.snapshot_count} 条
             </div>
           )}
         </div>

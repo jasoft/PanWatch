@@ -176,6 +176,7 @@ def list_summary(db: Session) -> dict:
         .all()
     )
     summary = build_summary(assets)
+    summary["snapshot_count"] = db.query(WealthSnapshot).count()
     latest = (
         db.query(WealthSnapshot)
         .order_by(WealthSnapshot.snapshot_date.desc())

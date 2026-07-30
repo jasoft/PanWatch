@@ -92,6 +92,7 @@ export interface WealthSummary {
   derivative_exposure: number
   real_market_value: number
   leverage: number
+  snapshot_count: number
   by_category: Record<string, CategorySummary>
   assets: WealthAsset[]
   latest_snapshot: WealthSnapshot | null

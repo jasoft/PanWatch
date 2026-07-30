@@ -19,6 +19,7 @@ from src.extensions.wealth.schemas import (
 )
 from src.extensions.wealth.service import (
     build_summary,
+    list_summary,
     performance_series,
     record_snapshot,
     sync_google_sheets,
@@ -231,7 +232,9 @@ def test_imported_nav_curve_compares_with_benchmark_on_same_base():
         )
         sync_google_sheets(db, payload)
         curve = performance_series(db, "max")
+        summary = list_summary(db)
         last = curve["points"][-1]
+        assert summary["snapshot_count"] == 2
         assert round(last["portfolio_return"], 6) == 0.1
         assert round(last["benchmark_return"], 6) == 0.05
         assert round(last["excess_return"], 6) == 0.05
