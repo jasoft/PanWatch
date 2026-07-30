@@ -1518,7 +1518,19 @@ async def lifespan(app):
         logger.info("上下文维护调度器已启动")
     except Exception as e:
         logger.error(f"上下文维护调度器启动失败: {e}")
+    try:
+        from src.extensions.wealth import start_wealth_extension
+
+        start_wealth_extension()
+    except Exception as e:
+        logger.error(f"全资产快照调度器启动失败: {e}")
     yield
+    try:
+        from src.extensions.wealth import stop_wealth_extension
+
+        stop_wealth_extension()
+    except Exception as e:
+        logger.error(f"全资产快照调度器关闭失败: {e}")
     if scheduler:
         scheduler.shutdown()
         logger.info("Agent 调度器已关闭")

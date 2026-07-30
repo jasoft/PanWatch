@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Routes, Route, NavLink, useLocation, Navigate } from 'react-router-dom'
-import { TrendingUp, Bot, ScrollText, Settings, List, Database, Clock, LayoutDashboard, Github, BellRing, Sparkles, Activity } from 'lucide-react'
+import { TrendingUp, Bot, ScrollText, Settings, List, Database, Clock, LayoutDashboard, Github, BellRing, Sparkles, Activity, Landmark } from 'lucide-react'
 import { useTheme } from '@/hooks/use-theme'
 import { appApi, fetchAPI, isAuthenticated } from '@panwatch/api'
 import DashboardPage from '@/pages/Dashboard'
@@ -13,6 +13,7 @@ import HistoryPage from '@/pages/History'
 import AnalysisDetailPage from '@/pages/AnalysisDetail'
 import PriceAlertsPage from '@/pages/PriceAlerts'
 import PaperTradingPage from '@/pages/PaperTrading'
+import WealthPage from '@/extensions/wealth/WealthPage'
 import LoginPage from '@/pages/Login'
 import LogsModal from '@panwatch/biz-ui/components/logs-modal'
 import AmbientBackground from '@panwatch/biz-ui/components/AmbientBackground'
@@ -25,6 +26,7 @@ import { Button } from '@panwatch/base-ui/components/ui/button'
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: '首页' },
   { to: '/portfolio', icon: List, label: '持仓' },
+  { to: '/wealth', icon: Landmark, label: '资产' },
   { to: '/opportunities', icon: Sparkles, label: '机会' },
   { to: '/paper-trading', icon: Activity, label: '模拟盘' },
   { to: '/alerts', icon: BellRing, label: '提醒' },
@@ -78,7 +80,7 @@ function App() {
   const [upgradeOpen, setUpgradeOpen] = useState(false)
   const [upgradeInfo, setUpgradeInfo] = useState<{ latest: string; url: string } | null>(null)
   const checkedUpdateRef = useRef(false)
-  const repoUrl = 'https://github.com/TNT-Likely/PanWatch'
+  const repoUrl = 'https://github.com/jasoft/PanWatch'
 
   useEffect(() => {
     appApi.version()
@@ -258,6 +260,7 @@ function App() {
           <Route path="/" element={<DashboardPage />} />
           <Route path="/opportunities" element={<OpportunitiesPage />} />
           <Route path="/portfolio" element={<StocksPage />} />
+          <Route path="/wealth" element={<WealthPage />} />
           <Route path="/agents" element={<AgentsPage />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/paper-trading" element={<PaperTradingPage />} />

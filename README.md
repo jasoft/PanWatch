@@ -49,6 +49,19 @@
 
 ## 核心功能
 
+### 本分支：全资产与净值曲线
+
+本分支新增独立的“全资产”扩展，统一管理 A/H/B 股、ETF、公募/私募基金、
+现金、负债、内盘期货和期权。B 股按证券自身的 USD/HKD 汇率折算人民币市值，
+衍生品将账户权益与合约名义敞口分开；系统在工作日收盘后记录净资产快照，并与
+沪深300ETF（510300）绘制归一化收益对比。Google Sheets 通过带密钥的私有
+Cloudflare Worker 中继同步，不暴露 PanWatch 家庭网络端口。
+
+实现集中在 `src/extensions/wealth/` 与
+`frontend/src/extensions/wealth/`，仅在上游入口保留少量注册代码，便于持续
+合并上游更新。配置、估值口径、同步协议和升级方式见
+[全资产扩展文档](docs/full-asset-extension.md)。
+
 <details>
 <summary><b>智能 Agent 系统</b></summary>
 

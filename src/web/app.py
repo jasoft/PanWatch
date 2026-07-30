@@ -33,6 +33,7 @@ from src.web.api import insights
 from src.web.api.auth import get_current_user
 from src.web.api.settings import get_app_version
 from src.web.response import ResponseWrapperMiddleware
+from src.extensions.wealth import api as wealth_api
 
 app = FastAPI(
     title="PanWatch API",
@@ -170,6 +171,18 @@ app.include_router(
     prefix="/api/chat",
     tags=["chat"],
     dependencies=protected,
+)
+app.include_router(
+    wealth_api.router,
+    prefix="/api/wealth",
+    tags=["wealth"],
+    dependencies=protected,
+)
+# 本机 Google Sheets 桥接器使用独立同步密钥，不依赖会过期的网页登录 JWT。
+app.include_router(
+    wealth_api.sync_router,
+    prefix="/api/wealth-sync",
+    tags=["wealth-sync"],
 )
 
 
